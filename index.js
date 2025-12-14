@@ -56,22 +56,65 @@ client.on("messageCreate", (message) => {
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
-  if (interaction.commandName !== "count") return;
+  if (interaction.commandName === "count") {
+    const user = interaction.options.getUser("user", true);
+    let word = interaction.options.getString("word", true).trim().toLowerCase();
 
-  const user = interaction.options.getUser("user", true);
-  let word = interaction.options.getString("word", true).trim().toLowerCase();
-  if (!/^[a-z]+$/i.test(word)) {
-    return interaction.reply({
-      content: `Please use letters only for now (A–Z). Example: \`/count user:@Someone word:potato\``,
-      ephemeral: true,
-    });
+    if (!/^[a-z]+$/i.test(word)) {
+      return interaction.reply({
+        content: `Please use letters only (A–Z). Example: \`/count user:@Someone word:potato\``,
+        ephemeral: true,
+      });
+    }
+
+    const count = data.users?.[user.id]?.[word] ?? 0;
+
+    return interaction.reply(
+      `**${user.username}** has said the word **"${word}"** **${count}** time(s).`
+    );
   }
 
-  const count = data.users?.[user.id]?.[word] ?? 0;
+  if (interaction.commandName === "leaderboard") {
+    let word = interaction.options.getString("word", true).trim().toLowerCase();
 
-  await interaction.reply(
-    `📊 **${user.username}** has said the word **"${word}"** **${count}** time(s) (since the bot started running).`
-  );
+    if (!/^[a-z]+$/i.test(word)) {
+      return interaction.reply({
+        content: `Please use letters only (A–Z). Example: \`/leaderboard word:potato\``,
+        ephemeral: true,
+      });
+    }
+
+    const usersObj = data.users || {};
+    const entries = Object.entries(usersObj)
+      .map(([userId, words]) => [userId, words?.[word] ?? 0])
+      .filter(([, count]) => count > 0)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10);
+
+    if (entries.length === 0) {
+      return interaction.reply(`Nobody has said **"${word}"** yet.`);
+    }
+
+    const lines = [];
+    for (let i = 0; i < entries.length; i++) {
+      const [userId, count] = entries[i];
+
+      let name = "Unknown User";
+      try {
+        const member = await interaction.guild.members.fetch(userId);
+        name = member.displayName;
+      } catch {
+        // user not in this server or can't be fetched
+      }
+
+      lines.push(`**${i + 1}.** @${name} — **${count}** times`);
+    }
+
+    return interaction.reply(
+      `**Leaderboard for "${word}"**\n` + lines.join("\n")
+    );
+  }
 });
+
 
 client.login(process.env.DISCORD_TOKEN);
