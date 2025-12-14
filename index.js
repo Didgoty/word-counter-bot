@@ -79,7 +79,7 @@ client.on("interactionCreate", async (interaction) => {
 
     if (!/^[a-z]+$/i.test(word)) {
       return interaction.reply({
-        content: `Please use letters only (A–Z). Example: \`/leaderboard word:potato\``,
+        content: `Please use letters only (A–Z).`,
         ephemeral: true,
       });
     }
@@ -106,8 +106,12 @@ client.on("interactionCreate", async (interaction) => {
       } catch {
         // user not in this server or can't be fetched
       }
-
-      lines.push(`**${i + 1}.** @${name} — **${count}** times`);
+      if (count == 1) {
+        lines.push(`**${i + 1}.** @${name} — **${count}** time`);
+      } else {
+        lines.push(`**${i + 1}.** @${name} — **${count}** times`);
+      }
+ 
     }
 
     return interaction.reply(
