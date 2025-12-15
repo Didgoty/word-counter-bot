@@ -127,7 +127,7 @@ client.on("interactionCreate", async (interaction) => {
       `**Leaderboard for "${word}"**\n` + lines.join("\n")
     );
   }
-  if (interaction.commandName == "fuckass fun facts") {
+  if (interaction.commandName == "fuckass-fun-facts") {
     function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
