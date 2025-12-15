@@ -11,11 +11,16 @@ const commands = [
     ],
   },
   {
-            name: "leaderboard",
+    name: "leaderboard",
     description: "Top 10 users who have said a word the most.",
     options: [
       { name: "word", description: "Word to rank (letters only)", type: 3, required: true },
     ],
+  },
+  {
+    name: "fuckass fun facts", 
+    description: "generates a fuckass fun fact",
+
   }
 ];
 
