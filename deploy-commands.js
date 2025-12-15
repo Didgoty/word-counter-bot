@@ -18,7 +18,7 @@ const commands = [
     ],
   },
   {
-    name: "fuckass fun facts", 
+    name: "fuckass-fun-facts", 
     description: "generates a fuckass fun fact",
 
   }
