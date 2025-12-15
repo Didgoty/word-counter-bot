@@ -3,7 +3,9 @@ const fs = require("fs");
 const path = require("path");
 const { Client, GatewayIntentBits } = require("discord.js");
 
-const DATA_PATH = path.join(__dirname, "data.json");
+const DATA_DIR = process.env.DATA_DIR || __dirname;
+const DATA_PATH = path.join(DATA_DIR, "data.json");
+
 
 function loadData() {
   try {
