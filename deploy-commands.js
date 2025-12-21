@@ -1,5 +1,15 @@
+console.log("deploy script started");
 require("dotenv").config();
 const { REST, Routes } = require("discord.js");
+
+console.log("deploy script started");
+console.log("TOKEN present?", Boolean(process.env.DISCORD_TOKEN));
+console.log("CLIENT_ID:", process.env.CLIENT_ID);
+console.log("GUILD_ID:", process.env.GUILD_ID);
+
+
+
+
 
 const commands = [
   {
@@ -24,16 +34,21 @@ const commands = [
   },
   {
     name: "8-ball",
-    description: "decides your fate"
+    description: "decides your fate",
   }
 ];
 
 const rest = new REST({ version: "10" }).setToken(process.env.DISCORD_TOKEN);
 
 (async () => {
-  await rest.put(
-    Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
-    { body: commands }
-  );
-  console.log("Slash command registered/updated.");
+  try {
+    console.log("About to PUT commands...");
+    const res = await rest.put(
+      Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+      { body: commands }
+    );
+    console.log(" Done. Registered:", Array.isArray(res) ? res.length : res);
+  } catch (e) {
+    console.error(" Error deploying commands:", e);
+  }
 })();

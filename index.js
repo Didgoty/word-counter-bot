@@ -150,9 +150,9 @@ client.on("interactionCreate", async (interaction) => {
     if (choice == 0) {
       return interaction.reply(yes[getRandomInt(0, yes.length - 1)])
     } else if (choice == 1) {
-      return interaction.reply(yes[getRandomInt(0, maybe.length - 1)])
+      return interaction.reply(maybe[getRandomInt(0, maybe.length - 1)])
     } else if (choice == 2) {
-      return interaction.reply(yes[getRandomInt(0, no.length - 1)])
+      return interaction.reply(no[getRandomInt(0, no.length - 1)])
     }
     
 
