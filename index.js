@@ -129,15 +129,32 @@ client.on("interactionCreate", async (interaction) => {
   }
   if (interaction.commandName == "fuckass-fun-facts") {
     function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
     const funFacts = require("./funfacts.json");
     return interaction.reply(funFacts[getRandomInt(0, funFacts.length - 1)])
 
+  }
+  if (interaction.commandName == "8-ball") {
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    const yes = ["yes", "very certain", "outlook good"];
+    const maybe = ["maybe", "ask again later"];
+    const no = ["no", "don\'t count on it", "outcome not so good"]
+    let choice = getRandomInt(0, 2)
+    if (choice == 0) {
+      return interaction.reply(yes[getRandomInt(0, yes.length - 1)])
+    } else if (choice == 1) {
+      return interaction.reply(yes[getRandomInt(0, maybe.length - 1)])
+    } else if (choice == 2) {
+      return interaction.reply(yes[getRandomInt(0, no.length - 1)])
+    }
     
-
 
   }
 });

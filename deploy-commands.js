@@ -21,6 +21,10 @@ const commands = [
     name: "fuckass-fun-facts", 
     description: "generates a fuckass fun fact",
 
+  },
+  {
+    name: "8-ball",
+    description: "decides your fate"
   }
 ];
 
