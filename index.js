@@ -138,6 +138,7 @@ client.on("interactionCreate", async (interaction) => {
 
   }
   if (interaction.commandName == "8-ball") {
+    let request = interaction.options.getString("request", true).trim().toLowerCase();
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -148,11 +149,11 @@ client.on("interactionCreate", async (interaction) => {
     const no = ["no", "don\'t count on it", "outcome not so good"]
     let choice = getRandomInt(0, 2)
     if (choice == 0) {
-      return interaction.reply(yes[getRandomInt(0, yes.length - 1)])
+      return interaction.reply(request + "?..  " + yes[getRandomInt(0, yes.length - 1)])
     } else if (choice == 1) {
-      return interaction.reply(maybe[getRandomInt(0, maybe.length - 1)])
+      return interaction.reply(request + "?..  " + maybe[getRandomInt(0, maybe.length - 1)])
     } else if (choice == 2) {
-      return interaction.reply(no[getRandomInt(0, no.length - 1)])
+      return interaction.reply(request + "?..  " + no[getRandomInt(0, no.length - 1)])
     }
     
 

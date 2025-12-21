@@ -35,6 +35,9 @@ const commands = [
   {
     name: "8-ball",
     description: "decides your fate",
+    options: [
+      { name: "request", description: "What will you ask the real magic totally not ransom 8-ball??", type: 3, required: true },
+    ]
   }
 ];
 
